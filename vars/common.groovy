@@ -2,14 +2,18 @@ def call(String stageName){
   
   if ("${stageName}" == "Build")
      {
-       sh "mvn clean package"
+       sh 'echo validate, complie and perform UnitTesting'
+       sh "echo UnitTesting must pass for artifacts to be created"
+       sh 'mvn clean package'
      }
   else if ("${stageName}" == "SonarQube Report")
      {
-       sh "mvn clean sonar:sonar"
+       sh "mvn sonar:sonar"
+       sh 'echo code quality analysis completed'
      }
   else if ("${stageName}" == "Upload Into Nexus")
      {
-       sh "mvn clean deploy"
+       sh 'mvn deploy'
+       sh 'echo artifacts uploaded successfully'
      }
 }
